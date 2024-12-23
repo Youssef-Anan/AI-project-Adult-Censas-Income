@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Predict Income</h2>
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+<div class="alert alert-info">
+    <h4>Prediction Result</h4>
+    <p>The predicted income is: <strong>{{ result }}</strong></p>
+</div>
+{% endif %}
+<form method="POST">
+    <div class="mb-3">
+        <label for="Age" class="form-label">Age</label>
+        <input type="text" id="Age" name="Age" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="Education" class="form-label">Education</label>
+        <select id="Education" name="Education" class="form-select" required>
+            <option value="HS-grad">HS-grad</option>
+            <option value="Some-college">Some-college</option>
+            <option value="7th-8th">7th-8th</option>
+            <option value="10th">10th</option>
+            <option value="Doctorate">Doctorate</option>
+            <option value="Prof-school">Prof-school</option>
+            <option value="Bachelors">Bachelors</option>
+            <option value="Masters">Masters</option>
+            <option value="11th">11th</option>
+            <option value="Assoc-acdm">Assoc-acdm</option>
+            <option value="Assoc-voc">Assoc-voc</option>
+            <option value="1st-4th">1st-4th</option>
+            <option value="5th-6th">5th-6th</option>
+            <option value="12th">12th</option>
+            <option value="9th">9th</option>
+            <option value="Preschool">Preschool</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Marital Status" class="form-label">Marital Status</label>
+        <select id="Marital Status" name="Marital Status" class="form-select" required>
+            <option value="Widowed">Widowed</option>
+            <option value="Divorced">Divorced</option>
+            <option value="Separated">Separated</option>
+            <option value="Never-married">Never-married</option>
+            <option value="Married-civ-spouse">Married-civ-spouse</option>
+            <option value="Married-spouse-absent">Married-spouse-absent</option>
+            <option value="Married-AF-spouse">Married-AF-spouse</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Occupation" class="form-label">Occupation</label>
+        <select id="Occupation" name="Occupation" class="form-select" required>
+            <option value="Exec-managerial">Exec-managerial</option>
+            <option value="Machine-op-inspct">Machine-op-inspct</option>
+            <option value="Prof-specialty">Prof-specialty</option>
+            <option value="Other-service">Other-service</option>
+            <option value="Adm-clerical">Adm-clerical</option>
+            <option value="Craft-repair">Craft-repair</option>
+            <option value="Transport-moving">Transport-moving</option>
+            <option value="Handlers-cleaners">Handlers-cleaners</option>
+            <option value="Sales">Sales</option>
+            <option value="Farming-fishing">Farming-fishing</option>
+            <option value="Tech-support">Tech-support</option>
+            <option value="Protective-serv">Protective-serv</option>
+            <option value="Armed-Forces">Armed-Forces</option>
+            <option value="Priv-house-serv">Priv-house-serv</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Relationship" class="form-label">Relationship</label>
+        <select id="Relationship" name="Relationship" class="form-select" required>
+            <option value="Not-in-family">Not-in-family</option>
+            <option value="Unmarried">Unmarried</option>
+            <option value="Own-child">Own-child</option>
+            <option value="Other-relative">Other-relative</option>
+            <option value="Husband">Husband</option>
+            <option value="Wife">Wife</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Race" class="form-label">Race</label>
+        <input type="text" id="Race" name="Race" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="Sex" class="form-label">Sex</label>
+        <select id="Sex" name="Sex" class="form-select" required>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Capital Gain" class="form-label">Capital Gain</label>
+        <select id="Capital Gain" name="Capital Gain" class="form-select" required>
+            <option value="0">0</option>
+            <option value="1">1</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Capital Loss" class="form-label">Capital Loss</label>
+        <select id="Capital Loss" name="Capital Loss" class="form-select" required>
+            <option value="0">0</option>
+            <option value="1">1</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Hours Per Week" class="form-label">Hours Per Week</label>
+        <input type="text" id="Hours Per Week" name="Hours Per Week" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="model" class="form-label">Select Model</label>
+        <select id="model" name="model" class="form-select" required>
+            <option value="knn">K-Nearest Neighbors</option>
+            <option value="svm">Support Vector Machine</option>
+            <option value="decision_tree">Decision Tree</option>
+            <option value="logistic_regression">Logistic Regression</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Predict</button>
+</form>
+<a class="btn btn-primary mt-4" href="/">Back to Home</a>
+{% endblock %}

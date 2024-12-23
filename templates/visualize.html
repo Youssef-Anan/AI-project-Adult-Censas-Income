@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Visualize Model Performance</h2>
+
+<form method="POST">
+    <div class="mb-3">
+        <label for="model" class="form-label">Select Model</label>
+        <select id="model" name="model" class="form-select" required>
+            <option value="decision_tree">Decision Tree</option>
+            <option value="logistic_regression">Logistic Regression</option>
+            <option value="svm">Support Vector Machine</option>
+            <option value="knn">K-Nearest Neighbors</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Visualizations</button>
+</form>
+
+{% if error %}
+<div class="alert alert-danger mt-4">{{ error }}</div>
+{% endif %}
+
+{% if confusion_matrix_plot %}
+<div class="mt-4">
+    <h4>{{ model_name }} - Confusion Matrix</h4>
+    <img src="data:image/png;base64,{{ confusion_matrix_plot }}" class="img-fluid" alt="Confusion Matrix">
+</div>
+{% endif %}
+
+{% if roc_curve_plot %}
+<div class="mt-4">
+    <h4>{{ model_name }} - ROC Curve</h4>
+    <img src="data:image/png;base64,{{ roc_curve_plot }}" class="img-fluid" alt="ROC Curve">
+</div>
+{% endif %}
+
+{% if decision_tree_plot %}
+<div class="mt-4">
+    <h4>{{ model_name }} - Decision Tree</h4>
+    <img src="data:image/png;base64,{{ decision_tree_plot }}" class="img-fluid" alt="Decision Tree Plot">
+</div>
+{% endif %}
+
+<a class="btn btn-secondary mt-4" href="/">Back to Home</a>
+{% endblock %}
