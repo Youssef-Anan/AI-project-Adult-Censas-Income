@@ -1,5 +1,19 @@
 import pickle
 import numpy as np
+import os
+
+def load_from_models_directory(filename):
+    """
+    Load a file from the models directory with a relative path.
+    Args:
+        filename (str): The name of the file to load.
+    Returns:
+        object: The loaded object from the file.
+    """
+    base_dir = os.path.dirname(__file__)
+    file_path = os.path.join(base_dir, 'models', filename)
+    with open(file_path, 'rb') as file:
+        return pickle.load(file)
 
 def load_label_encoders():
     """
@@ -7,7 +21,8 @@ def load_label_encoders():
     Returns:
         dict: Loaded label encoders.
     """
-    with open(r'AI project (adult census)\models\label_encoders.pkl', 'rb') as file:
+    model_path = os.path.join(os.path.dirname(__file__), 'models', 'label_encoders.pkl')
+    with open(model_path, 'rb') as file:
         label_encoders = pickle.load(file)
     return label_encoders
 
@@ -17,7 +32,8 @@ def load_scalers():
     Returns:
         dict: Loaded scalers.
     """
-    with open(r'AI project (adult census)\models\scalers.pkl', 'rb') as file:
+    model_path = os.path.join(os.path.dirname(__file__), 'models', 'scalers.pkl')
+    with open(model_path, 'rb') as file:
         scalers = pickle.load(file)
     return scalers
 
@@ -75,9 +91,6 @@ def decode_output(encoded_output, label_encoders, target_column):
     else:
         raise ValueError(f"Target column '{target_column}' is not in label encoders.")
 
-
-
-
 def standardize_input_keys(inputs, feature_mapping):
     """
     Map input dictionary keys to match the feature_order using FEATURE_MAPPING.
@@ -92,8 +105,7 @@ def standardize_input_keys(inputs, feature_mapping):
             raise ValueError(f"Feature '{technical_key}' is missing from input data.")
     return standardized_inputs
 
-
-def group_education(level):
+def map_education(level):
     """
     Group education levels as done in the training phase.
     """
@@ -103,3 +115,40 @@ def group_education(level):
         return 'College'
     else:
         return 'After-graduate'
+
+def map_marital_status(status):
+    """
+    Map marital statuses into broader categories.
+    """
+    marital_status_mapping = {
+        'Married-civ-spouse': 'Married',
+        'Married-AF-spouse': 'Married',
+        'Married-spouse-absent': 'Married',
+        'Never-married': 'Single',
+        'Divorced': 'Separated',
+        'Separated': 'Separated',
+        'Widowed': 'Separated'
+    }
+    return marital_status_mapping.get(status, status)
+
+def map_occupation(occupation):
+    """
+    Map occupations into broader categories.
+    """
+    occupation_mapping = {
+        'Prof-specialty': 'Professional',
+        'Exec-managerial': 'Professional',
+        'Tech-support': 'Professional',
+        'Adm-clerical': 'Sales',
+        'Sales': 'Sales',
+        'Other-service': 'Others',
+        'Protective-serv': 'Others',
+        'Priv-house-serv': 'Others',
+        'Armed-Forces': 'Others',
+        'Craft-repair': 'Blue-Collar',
+        'Machine-op-inspct': 'Blue-Collar',
+        'Transport-moving': 'Blue-Collar',
+        'Handlers-cleaners': 'Blue-Collar',
+        'Farming-fishing': 'Blue-Collar'
+    }
+    return occupation_mapping.get(occupation, occupation)
